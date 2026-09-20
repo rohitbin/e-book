@@ -13,4 +13,14 @@ if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    persistSession: false
+  },
+  global: {
+    fetch: (...args) => {
+      const [url, options] = args;
+      return fetch(url, { ...options, cache: 'no-store' });
+    }
+  }
+});
