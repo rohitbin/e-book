@@ -46,6 +46,14 @@ export default function Home() {
 
   const allImages = settings ? [settings.bookCover, settings.sampleImage1, settings.sampleImage2, settings.sampleImage3, settings.sampleImage4, settings.sampleImage5].filter(Boolean) : [];
 
+  useEffect(() => {
+    if (allImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    }, 3000); // Auto-slide every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [allImages.length]);
 
   const prevImage = () => {
     if (allImages.length <= 1) return;
