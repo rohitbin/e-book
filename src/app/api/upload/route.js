@@ -16,10 +16,10 @@ export async function POST(request) {
     const { data: userRow } = await supabase.from('settings').select('value').eq('key', 'adminUsername').single();
     const { data: passRow } = await supabase.from('settings').select('value').eq('key', 'adminPassword').single();
     
-    const expectedUsername = userRow?.value || 'admin';
+    const expectedUsername = (userRow?.value || 'admin').toLowerCase();
     const expectedPassword = passRow?.value;
 
-    if (!expectedPassword || password !== expectedPassword || username !== expectedUsername) {
+    if (!expectedPassword || password !== expectedPassword || (username || '').toLowerCase() !== expectedUsername) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
