@@ -199,6 +199,21 @@ export default function AdminPage() {
             <label>Sample Image 2</label>
             <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage2')} />
           </div>
+          <br/>
+          <div className={styles.inputGroup}>
+            <label>Sample Image 3</label>
+            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage3')} />
+          </div>
+          <br/>
+          <div className={styles.inputGroup}>
+            <label>Sample Image 4</label>
+            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage4')} />
+          </div>
+          <br/>
+          <div className={styles.inputGroup}>
+            <label>Sample Image 5</label>
+            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage5')} />
+          </div>
         </div>
 
         <div className={styles.section}>

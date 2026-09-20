@@ -44,7 +44,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const allImages = settings ? [settings.bookCover, settings.sampleImage1, settings.sampleImage2].filter(Boolean) : [];
+  const allImages = settings ? [settings.bookCover, settings.sampleImage1, settings.sampleImage2, settings.sampleImage3, settings.sampleImage4, settings.sampleImage5].filter(Boolean) : [];
 
 
   const prevImage = () => {
