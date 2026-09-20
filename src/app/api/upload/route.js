@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import path from 'path';
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function POST(request) {
   try {
     const formData = await request.formData();
