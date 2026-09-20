@@ -108,7 +108,7 @@ export default function Home() {
                         alt={`Book Image ${idx + 1}`} 
                         fill 
                         style={{ 
-                          objectFit: 'cover', 
+                          objectFit: 'contain', 
                           opacity: idx === currentImageIndex ? 1 : 0, 
                           transition: 'opacity 0.3s ease-in-out' 
                         }} 
