@@ -102,9 +102,6 @@ export default function Home() {
         </div>
 
         <div className={`container ${styles.animateFadeInUp}`} style={{ marginTop: '2.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <Image src="/logo.jpg" alt="StudySphere Books Logo" width={140} height={140} style={{ borderRadius: '50%', boxShadow: 'var(--shadow-md)', objectFit: 'cover' }} />
-          </div>
           <h1 className={styles.heroHeadline}>{settings.bookTitle}</h1>
           <p className={styles.heroSubtitle}>{settings.bookSubtitle}</p>
           
