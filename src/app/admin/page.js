@@ -38,7 +38,9 @@ export default function AdminPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!username || !password) return;
+    const cleanUser = username.trim();
+    const cleanPass = password.trim();
+    if (!cleanUser || !cleanPass) return;
     setLoading(true);
     setError('');
     
@@ -46,13 +48,15 @@ export default function AdminPage() {
       const res = await fetch('/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: cleanUser, password: cleanPass }),
       });
       
       if (res.ok) {
         setIsAuthenticated(true);
+      } else if (res.status === 401) {
+        setError('Incorrect password or ID');
       } else {
-        setError('Incorrect password');
+        setError('Server error (Are API keys set?)');
       }
     } catch (err) {
       setError('Network error');
