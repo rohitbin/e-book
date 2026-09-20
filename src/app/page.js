@@ -46,6 +46,15 @@ export default function Home() {
 
   const allImages = settings ? [settings.bookCover, settings.sampleImage1, settings.sampleImage2].filter(Boolean) : [];
 
+  useEffect(() => {
+    if (allImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    }, 3000); // Auto-slide every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [allImages.length]);
+
   const prevImage = () => {
     if (allImages.length <= 1) return;
     setCurrentImageIndex((prev) => (prev === 0 ? allImages.length - 1 : prev - 1));
@@ -93,6 +102,9 @@ export default function Home() {
         </div>
 
         <div className={`container ${styles.animateFadeInUp}`} style={{ marginTop: '2.5rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+            <Image src="/logo.jpg" alt="StudySphere Books Logo" width={140} height={140} style={{ borderRadius: '50%', boxShadow: 'var(--shadow-md)', objectFit: 'cover' }} />
+          </div>
           <h1 className={styles.heroHeadline}>{settings.bookTitle}</h1>
           <p className={styles.heroSubtitle}>{settings.bookSubtitle}</p>
           
