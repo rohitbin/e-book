@@ -195,6 +195,24 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .heroHeadline {
+    font-size: 3rem;
+  }
+  .heroLayout {
+    gap: 4rem;
+  }
+  .heroLeft {
+    max-width: 400px;
+  }
+  .heroRight {
+    max-width: 420px;
+  }
+  .priceTag {
+    font-size: 3rem;
+  }
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;

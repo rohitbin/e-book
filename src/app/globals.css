@@ -84,19 +84,25 @@ button {
 /* Base utility classes */
 .container {
   width: 100%;
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 768px;
+    padding: 0 2rem;
   }
   h1 {
     font-size: 3.5rem;
   }
   h2 {
     font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 4rem;
   }
 }
