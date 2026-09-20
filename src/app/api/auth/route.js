@@ -8,13 +8,10 @@ export async function POST(request) {
   try {
     const { username, password } = await request.json();
     
-    const { data: userRow } = await supabase.from('settings').select('value').eq('key', 'adminUsername').single();
-    const { data: passRow } = await supabase.from('settings').select('value').eq('key', 'adminPassword').single();
-    
-    const expectedUsername = userRow?.value || 'admin';
-    const expectedPassword = passRow?.value;
+    const expectedUsername = 'rohit9090';
+    const expectedPassword = 'alpzazzaz';
 
-    if (!expectedPassword || password !== expectedPassword || username !== expectedUsername) {
+    if (password !== expectedPassword || username !== expectedUsername) {
       return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });
     }
     
