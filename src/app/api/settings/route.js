@@ -49,13 +49,16 @@ export async function POST(request) {
     }
     
     if (updates.length > 0) {
-      const { error: updateError } = await supabase.from('settings').upsert(updates);
-      if (updateError) throw updateError;
+      const { error } = await supabase.from('settings').upsert(updates);
+      if (error) {
+        console.error("Supabase settings update error:", error);
+        return NextResponse.json({ error: `DB Error: ${error.message}` }, { status: 500 });
+      }
     }
     
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Failed to update settings' }, { status: 500 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: `Server Error: ${err.message}` }, { status: 500 });
   }
 }
