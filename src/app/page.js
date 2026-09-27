@@ -93,6 +93,9 @@ export default function Home() {
       {/* GENERIC HERO SECTION */}
       <section className={styles.genericHero}>
         <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+            <Image src="/logo.jpg" alt="StudySphere Logo" width={100} height={100} style={{ borderRadius: '50%', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }} />
+          </div>
           <h1 className={styles.heroMainTitle}>
             A COMPLETE STUDY MATERIAL FOR SSC, UPSC & OTHER GOVERNMENT EXAMS
           </h1>
