@@ -90,15 +90,38 @@ export default function Home() {
 
 
 
+      {/* GENERIC HERO SECTION */}
+      <section className={styles.genericHero}>
+        <div className="container">
+          <h1 className={styles.heroMainTitle}>
+            A COMPLETE STUDY MATERIAL FOR SSC, UPSC & OTHER GOVERNMENT EXAMS
+          </h1>
+          <p className={styles.heroMainSubtitle}>
+            Expertly crafted notes, previous year questions, and comprehensive guides designed to help you ace your competitive exams with confidence.
+          </p>
+          <div className={styles.trustBadges}>
+            <div className={styles.trustBadge}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              100% Authentic
+            </div>
+            <div className={styles.trustBadge}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              PDF Format
+            </div>
+            <div className={styles.trustBadge}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              Highly Rated
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* BOOKS SECTION */}
       {settings && (
-        <section className={styles.additionalBooksSection} style={{ padding: '4rem 0', backgroundColor: '#fff' }}>
+        <section className={styles.additionalBooksSection} style={{ padding: '4rem 0', backgroundColor: '#f8fafc' }}>
           <div className="container">
-            <div className={styles.sectionTitle}>
-              <h2 style={{ fontSize: '1.8rem' }}>A COMPLETE STUDY MATERIAL FOR SSC, UPSC & OTHER GOVERNMENT EXAMS</h2>
-            </div>
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2.5rem' }}>
               {(() => {
                 let parsedBooks = [];
                 
@@ -117,20 +140,27 @@ export default function Home() {
                   const bookWhatsappUrl = `https://wa.me/${specificWhatsappNumber}?text=${bookWhatsappMessage}`;
 
                   return (
-                    <div key={idx} style={{ border: '1px solid var(--border)', borderRadius: '1rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', backgroundColor: '#fff', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}>
-                      <div style={{ position: 'relative', width: '100%', height: '250px', backgroundColor: '#f3f4f6' }}>
+                    <div key={idx} className={styles.bookCard}>
+                      <div className={styles.badge}>Best Seller</div>
+                      <div className={styles.bookCoverWrapper}>
                         {book.coverImage ? (
-                          <Image src={book.coverImage} alt={book.title} fill style={{ objectFit: 'contain', padding: '1rem' }} />
+                          <Image className={styles.bookCoverImage} src={book.coverImage} alt={book.title} fill style={{ padding: '2rem' }} />
                         ) : (
-                          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>No Cover</div>
+                          <div style={{ color: '#9ca3af' }}>No Cover</div>
                         )}
                       </div>
-                      <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.5rem' }}>{book.title}</h3>
-                        <p style={{ margin: '0 0 1.5rem 0', color: 'var(--text-muted)', fontSize: '1rem', flexGrow: 1 }}>{book.description}</p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem' }}>
-                          <span style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>₹{book.price}</span>
-                          <button onClick={() => setPaymentModal({ title: book.title, price: book.price, qrCode: settings.qrCode, upiId: settings.upiId, isMain: false })} style={{ background: '#10B981', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', border: 'none', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', cursor: 'pointer', boxShadow: '0 2px 4px rgba(16, 185, 129, 0.3)' }}>Buy Now</button>
+                      <div className={styles.bookContent}>
+                        <h3 className={styles.bookTitle}>{book.title}</h3>
+                        <p className={styles.bookDesc}>{book.description}</p>
+                        <div className={styles.bookFooter}>
+                          <span className={styles.bookPrice}>₹{book.price}</span>
+                          <button 
+                            className={styles.bookBuyBtn} 
+                            onClick={() => setPaymentModal({ title: book.title, price: book.price, qrCode: settings.qrCode, upiId: settings.upiId, isMain: false })}
+                          >
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            Buy Now
+                          </button>
                         </div>
                       </div>
                     </div>
