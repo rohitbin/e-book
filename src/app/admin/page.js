@@ -232,6 +232,16 @@ export default function AdminPage() {
                 <input type="number" value={book.price || ''} onChange={(e) => handleBookChange(index, 'price', e.target.value)} required />
               </div>
               <br/>
+              <div className={styles.inputGroup} style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                <input 
+                  type="checkbox" 
+                  checked={book.isBestSeller || false} 
+                  onChange={(e) => handleBookChange(index, 'isBestSeller', e.target.checked)} 
+                  style={{ width: 'auto' }}
+                />
+                <label style={{ marginBottom: 0 }}>Mark as Best Seller</label>
+              </div>
+              <br/>
               <div className={styles.inputGroup}>
                 <label>Cover Image</label>
                 <input type="file" accept="image/*" onChange={(e) => handleBookCoverUpload(e, index)} />

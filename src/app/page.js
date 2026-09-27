@@ -141,7 +141,7 @@ export default function Home() {
 
                   return (
                     <div key={idx} className={styles.bookCard}>
-                      <div className={styles.badge}>Best Seller</div>
+                      {book.isBestSeller && <div className={styles.badge}>Best Seller</div>}
                       <div className={styles.bookCoverWrapper}>
                         {book.coverImage ? (
                           <Image className={styles.bookCoverImage} src={book.coverImage} alt={book.title} fill style={{ padding: '2rem' }} />
