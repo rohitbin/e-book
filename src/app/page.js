@@ -246,7 +246,7 @@ export default function Home() {
               <p>Check out our other premium titles below.</p>
             </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginTop: '2rem', maxWidth: '800px', margin: '2rem auto 0' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
               {(() => {
                 let parsedBooks = [];
                 try {
