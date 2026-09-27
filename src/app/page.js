@@ -99,20 +99,37 @@ export default function Home() {
 
 
 
-      {/* ADDITIONAL BOOKS SECTION */}
-      {settings.books && (
+      {/* BOOKS SECTION */}
+      {settings && (
         <section className={styles.additionalBooksSection} style={{ padding: '4rem 0', backgroundColor: '#fff' }}>
           <div className="container">
             <div className={styles.sectionTitle}>
-              <h2>More Books Available</h2>
-              <p>Check out our other premium titles below.</p>
+              <h2>Available Books</h2>
+              <p>Check out our premium titles below.</p>
             </div>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
               {(() => {
                 let parsedBooks = [];
+                
+                // 1. Add main book
+                if (settings.bookTitle) {
+                  parsedBooks.push({
+                    title: settings.bookTitle,
+                    description: settings.bookSubtitle,
+                    price: settings.price,
+                    coverImage: settings.bookCover
+                  });
+                }
+
+                // 2. Add additional books
                 try {
-                  parsedBooks = typeof settings.books === 'string' ? JSON.parse(settings.books) : settings.books;
+                  if (settings.books) {
+                    const additional = typeof settings.books === 'string' ? JSON.parse(settings.books) : settings.books;
+                    if (Array.isArray(additional)) {
+                      parsedBooks = [...parsedBooks, ...additional];
+                    }
+                  }
                 } catch(e) {}
                 
                 return parsedBooks.map((book, idx) => {
