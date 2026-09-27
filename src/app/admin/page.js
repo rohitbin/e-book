@@ -208,56 +208,8 @@ export default function AdminPage() {
       <form className={styles.adminForm} onSubmit={handleSave}>
         
         <div className={styles.section}>
-          <h2>Product Details</h2>
-          <div className={styles.inputGroup}>
-            <label>Book Title</label>
-            <input type="text" name="bookTitle" value={settings.bookTitle || ''} onChange={handleChange} required />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Book Subtitle</label>
-            <textarea name="bookSubtitle" value={settings.bookSubtitle || ''} onChange={handleChange} required />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Price (₹)</label>
-            <input type="number" name="price" value={settings.price || ''} onChange={handleChange} required />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Book Cover Image</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'bookCover')} />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Sample Image 1</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage1')} />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Sample Image 2</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage2')} />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Sample Image 3</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage3')} />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Sample Image 4</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage4')} />
-          </div>
-          <br/>
-          <div className={styles.inputGroup}>
-            <label>Sample Image 5</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage5')} />
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <h2>Additional Books</h2>
-          <p>Add more books to display below the main book.</p>
+          <h2>Books</h2>
+          <p>Add and manage your books here.</p>
           <br/>
           {books.map((book, index) => (
             <div key={book.id || index} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '8px' }}>

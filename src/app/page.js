@@ -66,16 +66,7 @@ export default function Home() {
     setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
   };
 
-  const scrollToPayment = () => {
-    // Instead of scrolling to the payment section, open the modal for the main book
-    setPaymentModal({
-      title: settings.bookTitle,
-      price: settings.price,
-      qrCode: settings.qrCode,
-      upiId: settings.upiId,
-      isMain: true
-    });
-  };
+
 
   if (!settings) {
     return <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
@@ -112,22 +103,12 @@ export default function Home() {
               {(() => {
                 let parsedBooks = [];
                 
-                // 1. Add main book
-                if (settings.bookTitle) {
-                  parsedBooks.push({
-                    title: settings.bookTitle,
-                    description: settings.bookSubtitle,
-                    price: settings.price,
-                    coverImage: settings.bookCover
-                  });
-                }
-
-                // 2. Add additional books
+                // Add books
                 try {
                   if (settings.books) {
                     const additional = typeof settings.books === 'string' ? JSON.parse(settings.books) : settings.books;
                     if (Array.isArray(additional)) {
-                      parsedBooks = [...parsedBooks, ...additional];
+                      parsedBooks = additional;
                     }
                   }
                 } catch(e) {}
@@ -196,14 +177,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      {/* 16. MOBILE CTA (STICKY) */}
-      <div className={`${styles.stickyCta} ${showSticky ? styles.visible : ''}`}>
-        <button onClick={scrollToPayment} className={styles.btnPrimary} style={{ width: '100%', maxWidth: '400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', padding: '1rem 1.5rem' }}>
-          <span>GET THE EBOOK</span>
-          <span>₹{settings.price}</span>
-        </button>
-      </div>
-
     </main>
   );
 }
