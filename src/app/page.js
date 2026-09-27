@@ -110,8 +110,6 @@ export default function Home() {
         </div>
 
         <div className={`container ${styles.animateFadeInUp}`} style={{ marginTop: '2.5rem' }}>
-          <h1 className={styles.heroHeadline}>{settings.bookTitle}</h1>
-          <p className={styles.heroSubtitle}>{settings.bookSubtitle}</p>
           
           <div className={styles.heroLayout}>
             <div className={styles.heroLeft}>
