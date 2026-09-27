@@ -266,6 +266,11 @@ export default function AdminPage() {
         <div className={styles.section}>
           <h2>Payment & Delivery</h2>
           <div className={styles.inputGroup}>
+            <label>Payment Demo Video Embed URL (e.g., https://www.youtube.com/embed/XXXX)</label>
+            <input type="text" name="paymentDemoVideo" value={settings.paymentDemoVideo || ''} onChange={handleChange} placeholder="Leave blank to hide" />
+          </div>
+          <br/>
+          <div className={styles.inputGroup}>
             <label>UPI ID</label>
             <input type="text" name="upiId" value={settings.upiId || ''} onChange={handleChange} required />
           </div>

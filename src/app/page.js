@@ -191,6 +191,20 @@ export default function Home() {
             
             <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.85rem' }}>One-time payment • PDF eBook</p>
                 
+            {settings.paymentDemoVideo && (
+              <div style={{ marginBottom: '1rem', borderRadius: '0.5rem', overflow: 'hidden' }}>
+                <iframe 
+                  width="100%" 
+                  height="180" 
+                  src={settings.paymentDemoVideo} 
+                  title="Payment Demo" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+            )}
+
             <h4 style={{ textAlign: 'center', margin: '0 0 0.5rem 0' }}>Scan & Pay</h4>
             <div className={styles.qrContainer} style={{ margin: '0 auto 0.5rem auto', width: '180px', height: '180px', padding: '0.5rem', border: '2px solid #e5e7eb', borderRadius: '0.5rem' }}>
               {paymentModal.qrCode ? (
