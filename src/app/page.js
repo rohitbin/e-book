@@ -98,56 +98,6 @@ export default function Home() {
     <main className={styles.main}>
 
 
-      {/* HOW TO GET IT SECTION */}
-      <section className={styles.workflowSection}>
-        <div className="container">
-          <div className={styles.sectionTitle}>
-            <h2>How to get your PDF?</h2>
-            <p>A simple 4-step process to get instant access on WhatsApp.</p>
-          </div>
-          
-          <div className={styles.workflowGrid}>
-            <div className={styles.workflowStep}>
-              <div className={styles.workflowIcon}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><rect x="7" y="7" width="10" height="10"></rect></svg>
-              </div>
-              <h4>1. Scan QR</h4>
-              <p>Scan the payment QR code above.</p>
-            </div>
-            
-            <div className={styles.workflowStep}>
-              <div className={styles.workflowIcon}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M7 15h0M2 9.5h20"></path></svg>
-              </div>
-              <h4>2. Pay ₹{settings.price}</h4>
-              <p>Complete the secure UPI payment.</p>
-            </div>
-            
-            <div className={styles.workflowStep}>
-              <div className={styles.workflowIcon}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-              </div>
-              <h4>3. Screenshot</h4>
-              <p>Take a screenshot of the successful payment screen.</p>
-            </div>
-            
-            <div className={styles.workflowStep}>
-              <div className={styles.workflowIcon}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-              </div>
-              <h4>4. Send on WhatsApp</h4>
-              <p>Send the screenshot to us. We will send the PDF immediately!</p>
-            </div>
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '3rem', padding: '1.25rem', backgroundColor: '#F9FAFB', borderRadius: '0.75rem', border: '1px solid var(--border)', maxWidth: '500px', margin: '3rem auto 0' }}>
-            <p style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-muted)' }}>
-              If you face any issues, please contact support:<br/>
-              <strong style={{ color: 'var(--foreground)', fontSize: '1.1rem', display: 'inline-block', marginTop: '0.25rem' }}>+91 9415590278</strong>
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* ADDITIONAL BOOKS SECTION */}
       {settings.books && (
