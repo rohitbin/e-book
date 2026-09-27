@@ -731,7 +731,7 @@
 }
 
 .genericHero {
-  padding: 3rem 1rem 2rem;
+  padding: 1.5rem 1rem 1rem;
   text-align: center;
   background: radial-gradient(circle at top, #f8fafc, #ffffff);
   border-bottom: 1px solid #f1f5f9;
@@ -754,10 +754,10 @@
 }
 
 .heroMainTitle {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 900;
   color: #0f172a;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   max-width: 900px;
   margin-inline: auto;
   line-height: 1.15;
@@ -766,26 +766,26 @@
 
 @media (min-width: 768px) {
   .heroMainTitle {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 }
 
 .heroMainSubtitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #475569;
   max-width: 650px;
   margin-inline: auto;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
 }
 
 .trustBadges {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .trustBadge {
