@@ -4,13 +4,17 @@ import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
   title: "ebook.pdf.com",
   description: "ebook.pdf.com",
+  icons: {
+    icon: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
   openGraph: {
     title: "ebook.pdf.com",
     description: "ebook.pdf.com",
     images: [{
-      url: '/cover-placeholder.png',
+      url: '/logo.jpg',
       width: 800,
-      height: 600,
+      height: 800,
     }]
   }
 };
