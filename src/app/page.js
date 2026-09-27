@@ -118,7 +118,7 @@ export default function Home() {
 
       {/* BOOKS SECTION */}
       {settings && (
-        <section className={styles.additionalBooksSection} style={{ padding: '1rem 0', backgroundColor: '#f8fafc' }}>
+        <section className={styles.additionalBooksSection} style={{ padding: '1rem 0 4rem', backgroundColor: '#f8fafc' }}>
           <div className="container">
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
