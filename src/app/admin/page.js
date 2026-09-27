@@ -25,6 +25,8 @@ export default function AdminPage() {
     terms: '',
   });
 
+  const [books, setBooks] = useState([]);
+
   useEffect(() => {
     // Fetch initial public settings just to populate the form if possible
     fetch('/api/settings')
@@ -32,6 +34,13 @@ export default function AdminPage() {
       .then(data => {
         if (!data.error) {
           setSettings(prev => ({ ...prev, ...data }));
+          if (data.books) {
+            try {
+              setBooks(JSON.parse(data.books));
+            } catch(e) {
+              console.error(e);
+            }
+          }
         }
       });
   }, []);
@@ -69,9 +78,9 @@ export default function AdminPage() {
     setSettings(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFileUpload = async (e, type) => {
+  const handleFileUpload = async (e, type, skipDbUpdate = false) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file) return null;
     
     setLoading(true);
     const formData = new FormData();
@@ -79,6 +88,9 @@ export default function AdminPage() {
     formData.append('type', type);
     formData.append('username', username);
     formData.append('password', password);
+    if (skipDbUpdate) {
+      formData.append('skipDbUpdate', 'true');
+    }
 
     try {
       const res = await fetch('/api/upload', {
@@ -87,9 +99,13 @@ export default function AdminPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        setSettings(prev => ({ ...prev, [type]: data.url }));
+        if (!skipDbUpdate) {
+          setSettings(prev => ({ ...prev, [type]: data.url }));
+        }
         setSuccess(`${type} uploaded successfully!`);
         setTimeout(() => setSuccess(''), 3000);
+        setLoading(false);
+        return data.url;
       } else {
         setError(data.error || 'Upload failed');
       }
@@ -97,6 +113,29 @@ export default function AdminPage() {
       setError('Upload failed');
     }
     setLoading(false);
+    return null;
+  };
+
+  const handleAddBook = () => {
+    setBooks([...books, { id: Date.now(), title: '', description: '', price: '', coverImage: '' }]);
+  };
+
+  const handleBookChange = (index, field, value) => {
+    const newBooks = [...books];
+    newBooks[index][field] = value;
+    setBooks(newBooks);
+  };
+
+  const handleBookRemove = (index) => {
+    const newBooks = books.filter((_, i) => i !== index);
+    setBooks(newBooks);
+  };
+
+  const handleBookCoverUpload = async (e, index) => {
+    const url = await handleFileUpload(e, `bookCover_${Date.now()}`, true);
+    if (url) {
+      handleBookChange(index, 'coverImage', url);
+    }
   };
 
   const handleSave = async (e) => {
@@ -109,7 +148,7 @@ export default function AdminPage() {
       const res = await fetch('/api/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...settings, username, password }),
+        body: JSON.stringify({ ...settings, books, username, password }),
       });
       
       const data = await res.json();
@@ -214,6 +253,43 @@ export default function AdminPage() {
             <label>Sample Image 5</label>
             <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'sampleImage5')} />
           </div>
+        </div>
+
+        <div className={styles.section}>
+          <h2>Additional Books</h2>
+          <p>Add more books to display below the main book.</p>
+          <br/>
+          {books.map((book, index) => (
+            <div key={book.id || index} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem', borderRadius: '8px' }}>
+              <div className={styles.inputGroup}>
+                <label>Book Title</label>
+                <input type="text" value={book.title || ''} onChange={(e) => handleBookChange(index, 'title', e.target.value)} required />
+              </div>
+              <br/>
+              <div className={styles.inputGroup}>
+                <label>Description</label>
+                <textarea value={book.description || ''} onChange={(e) => handleBookChange(index, 'description', e.target.value)} required />
+              </div>
+              <br/>
+              <div className={styles.inputGroup}>
+                <label>Price (₹)</label>
+                <input type="number" value={book.price || ''} onChange={(e) => handleBookChange(index, 'price', e.target.value)} required />
+              </div>
+              <br/>
+              <div className={styles.inputGroup}>
+                <label>Cover Image</label>
+                <input type="file" accept="image/*" onChange={(e) => handleBookCoverUpload(e, index)} />
+                {book.coverImage && <img src={book.coverImage} alt="Cover Preview" style={{ width: '100px', marginTop: '0.5rem' }} />}
+              </div>
+              <br/>
+              <button type="button" onClick={() => handleBookRemove(index)} style={{ background: '#ff4d4f', color: 'white', padding: '0.5rem', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                Remove Book
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={handleAddBook} style={{ background: '#10B981', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '0.5rem' }}>
+            + Add Another Book
+          </button>
         </div>
 
         <div className={styles.section}>

@@ -229,17 +229,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ADDITIONAL BOOKS SECTION */}
+      {settings.books && (
+        <section className={styles.additionalBooksSection} style={{ padding: '4rem 0', backgroundColor: '#fff' }}>
+          <div className="container">
+            <div className={styles.sectionTitle}>
+              <h2>More Books Available</h2>
+              <p>Check out our other premium titles below.</p>
+            </div>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+              {(() => {
+                let parsedBooks = [];
+                try {
+                  parsedBooks = typeof settings.books === 'string' ? JSON.parse(settings.books) : settings.books;
+                } catch(e) {}
+                
+                return parsedBooks.map((book, idx) => {
+                  const bookWhatsappMessage = encodeURIComponent(`Hi, I have completed the payment of ₹${book.price} for the eBook: ${book.title}. Here is my payment screenshot. Please send me the PDF.`);
+                  const bookWhatsappUrl = `https://wa.me/${specificWhatsappNumber}?text=${bookWhatsappMessage}`;
 
-
-
-
-
-
-
-
-
-
-      {/* 16. MOBILE CTA (STICKY) */}
+                  return (
+                    <div key={idx} style={{ border: '1px solid var(--border)', borderRadius: '1rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', backgroundColor: '#fff', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}>
+                      <div style={{ position: 'relative', width: '100%', height: '250px', backgroundColor: '#f3f4f6' }}>
+                        {book.coverImage ? (
+                          <Image src={book.coverImage} alt={book.title} fill style={{ objectFit: 'contain', padding: '1rem' }} />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>No Cover</div>
+                        )}
+                      </div>
+                      <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem' }}>{book.title}</h3>
+                        <p style={{ margin: '0 0 1rem 0', color: 'var(--text-muted)', fontSize: '0.9rem', flexGrow: 1 }}>{book.description}</p>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                          <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>₹{book.price}</span>
+                          <button onClick={scrollToPayment} style={{ background: 'transparent', border: 'none', color: '#10B981', fontWeight: 'bold', cursor: 'pointer' }}>Pay & Get</button>
+                        </div>
+                        <a href={bookWhatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.btnWhatsapp} style={{ padding: '0.75rem', fontSize: '0.9rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.5rem' }}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                          WhatsApp Details
+                        </a>
+                      </div>
+                    </div>
+                  );
+                });
+              })()}
+            </div>
+          </div>
+        </section>
+      )}      {/* 16. MOBILE CTA (STICKY) */}
       <div className={`${styles.stickyCta} ${showSticky ? styles.visible : ''}`}>
         <button onClick={scrollToPayment} className={styles.btnPrimary} style={{ width: '100%', maxWidth: '400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', padding: '1rem 1.5rem' }}>
           <span>GET THE EBOOK</span>

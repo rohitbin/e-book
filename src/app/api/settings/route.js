@@ -38,13 +38,15 @@ export async function POST(request) {
 
     const allowedKeys = [
       'bookTitle', 'bookSubtitle', 'price', 'upiId', 'whatsappNumber',
-      'instagramId', 'brandName', 'email', 'refundPolicy', 'privacyPolicy', 'terms'
+      'instagramId', 'brandName', 'email', 'refundPolicy', 'privacyPolicy', 'terms',
+      'books'
     ];
     
     const updates = [];
     for (const key of allowedKeys) {
       if (body[key] !== undefined) {
-        updates.push({ key, value: String(body[key]) });
+        const value = typeof body[key] === 'object' ? JSON.stringify(body[key]) : String(body[key]);
+        updates.push({ key, value });
       }
     }
     

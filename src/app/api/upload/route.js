@@ -54,8 +54,10 @@ export async function POST(request) {
     const publicUrl = urlData.publicUrl;
 
     // Save path to settings
-    const { error: updateError } = await supabase.from('settings').upsert({ key: type, value: publicUrl });
-    if (updateError) throw updateError;
+    if (!formData.get('skipDbUpdate')) {
+      const { error: updateError } = await supabase.from('settings').upsert({ key: type, value: publicUrl });
+      if (updateError) throw updateError;
+    }
 
     return NextResponse.json({ success: true, url: publicUrl });
   } catch (error) {
