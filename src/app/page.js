@@ -95,8 +95,7 @@ export default function Home() {
         <section className={styles.additionalBooksSection} style={{ padding: '4rem 0', backgroundColor: '#fff' }}>
           <div className="container">
             <div className={styles.sectionTitle}>
-              <h2>Available Books</h2>
-              <p>Check out our premium titles below.</p>
+              <h2 style={{ fontSize: '1.8rem' }}>A COMPLETE STUDY MATERIAL FOR SSC, UPSC & OTHER GOVERNMENT EXAMS</h2>
             </div>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
