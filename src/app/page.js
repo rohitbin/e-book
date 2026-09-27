@@ -24,6 +24,7 @@ export default function Home() {
   const [settings, setSettings] = useState(null);
   const [showSticky, setShowSticky] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [paymentModal, setPaymentModal] = useState(null);
 
   useEffect(() => {
     fetch('/api/settings', { cache: 'no-store' })
@@ -66,7 +67,14 @@ export default function Home() {
   };
 
   const scrollToPayment = () => {
-    document.getElementById('payment-section').scrollIntoView({ behavior: 'smooth' });
+    // Instead of scrolling to the payment section, open the modal for the main book
+    setPaymentModal({
+      title: settings.bookTitle,
+      price: settings.price,
+      qrCode: settings.qrCode,
+      upiId: settings.upiId,
+      isMain: true
+    });
   };
 
   if (!settings) {
@@ -238,7 +246,7 @@ export default function Home() {
               <p>Check out our other premium titles below.</p>
             </div>
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginTop: '2rem', maxWidth: '800px', margin: '2rem auto 0' }}>
               {(() => {
                 let parsedBooks = [];
                 try {
@@ -259,16 +267,12 @@ export default function Home() {
                         )}
                       </div>
                       <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem' }}>{book.title}</h3>
-                        <p style={{ margin: '0 0 1rem 0', color: 'var(--text-muted)', fontSize: '0.9rem', flexGrow: 1 }}>{book.description}</p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                          <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>₹{book.price}</span>
-                          <button onClick={scrollToPayment} style={{ background: 'transparent', border: 'none', color: '#10B981', fontWeight: 'bold', cursor: 'pointer' }}>Pay & Get</button>
+                        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.5rem' }}>{book.title}</h3>
+                        <p style={{ margin: '0 0 1.5rem 0', color: 'var(--text-muted)', fontSize: '1rem', flexGrow: 1 }}>{book.description}</p>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem' }}>
+                          <span style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>₹{book.price}</span>
+                          <button onClick={() => setPaymentModal({ title: book.title, price: book.price, qrCode: settings.qrCode, upiId: settings.upiId, isMain: false })} style={{ background: '#10B981', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', border: 'none', color: '#fff', fontWeight: 'bold', fontSize: '1.1rem', cursor: 'pointer', boxShadow: '0 2px 4px rgba(16, 185, 129, 0.3)' }}>Buy Now</button>
                         </div>
-                        <a href={bookWhatsappUrl} target="_blank" rel="noopener noreferrer" className={styles.btnWhatsapp} style={{ padding: '0.75rem', fontSize: '0.9rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.5rem' }}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                          WhatsApp Details
-                        </a>
                       </div>
                     </div>
                   );
@@ -277,7 +281,43 @@ export default function Home() {
             </div>
           </div>
         </section>
-      )}      {/* 16. MOBILE CTA (STICKY) */}
+      )}
+
+      {/* PAYMENT MODAL */}
+      {paymentModal && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={() => setPaymentModal(null)}>
+          <div style={{ background: '#fff', borderRadius: '1rem', padding: '2rem', maxWidth: '400px', width: '100%', position: 'relative', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setPaymentModal(null)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#6b7280' }}>&times;</button>
+            
+            <h3 style={{ textAlign: 'center', margin: '0 0 0.5rem 0', fontSize: '1.25rem' }}>{paymentModal.title}</h3>
+            <div style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', color: '#10B981', marginBottom: '1rem' }}>₹{paymentModal.price}</div>
+            
+            <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.85rem' }}>One-time payment • PDF eBook</p>
+                
+            <h4 style={{ textAlign: 'center', margin: '0 0 0.5rem 0' }}>Scan & Pay</h4>
+            <div className={styles.qrContainer} style={{ margin: '0 auto 0.5rem auto', width: '180px', height: '180px', padding: '0.5rem', border: '2px solid #e5e7eb', borderRadius: '0.5rem' }}>
+              {paymentModal.qrCode ? (
+                 <Image src={paymentModal.qrCode} alt="Payment QR Code" width={160} height={160} style={{ objectFit: 'contain' }} />
+              ) : (
+                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f4f6', color: '#9ca3af', fontSize: '0.8rem', textAlign: 'center' }}>
+                  [QR CODE]
+                </div>
+              )}
+            </div>
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              <span className={styles.upiId} style={{ fontSize: '1rem', padding: '0.25rem 0.75rem', background: '#f3f4f6', borderRadius: '999px', display: 'inline-block' }}>UPI ID: {paymentModal.upiId}</span>
+            </div>
+            
+            <p style={{ margin: '0 0 1rem 0', fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>After payment, send the screenshot on WhatsApp to get your PDF immediately.</p>
+            
+            <a href={`https://wa.me/${specificWhatsappNumber}?text=${encodeURIComponent(`Hi, I have completed the payment of ₹${paymentModal.price} for the eBook: ${paymentModal.title}. Here is my payment screenshot. Please send me the PDF.`)}`} target="_blank" rel="noopener noreferrer" className={styles.btnWhatsapp} style={{ padding: '0.75rem 1rem', fontSize: '1rem', display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.5rem' }}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              SEND SCREENSHOT
+            </a>
+          </div>
+        </div>
+      )}
+      {/* 16. MOBILE CTA (STICKY) */}
       <div className={`${styles.stickyCta} ${showSticky ? styles.visible : ''}`}>
         <button onClick={scrollToPayment} className={styles.btnPrimary} style={{ width: '100%', maxWidth: '400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', padding: '1rem 1.5rem' }}>
           <span>GET THE EBOOK</span>
