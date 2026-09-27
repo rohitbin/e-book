@@ -121,7 +121,7 @@ export default function Home() {
         <section className={styles.additionalBooksSection} style={{ padding: '1rem 0 4rem', backgroundColor: '#f8fafc' }}>
           <div className="container">
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
               {(() => {
                 let parsedBooks = [];
                 
