@@ -78,7 +78,7 @@ export default function AdminPage() {
     setSettings(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFileUpload = async (e, type, skipDbUpdate = false) => {
+  const handleFileUpload = async (e, type, skipDbUpdate = false, oldUrl = null) => {
     const file = e.target.files[0];
     if (!file) return null;
     
@@ -90,6 +90,9 @@ export default function AdminPage() {
     formData.append('password', password);
     if (skipDbUpdate) {
       formData.append('skipDbUpdate', 'true');
+    }
+    if (oldUrl) {
+      formData.append('oldUrl', oldUrl);
     }
 
     try {
@@ -132,7 +135,8 @@ export default function AdminPage() {
   };
 
   const handleBookCoverUpload = async (e, index) => {
-    const url = await handleFileUpload(e, `bookCover_${Date.now()}`, true);
+    const oldUrl = books[index].coverImage;
+    const url = await handleFileUpload(e, `bookCover_${Date.now()}`, true, oldUrl);
     if (url) {
       handleBookChange(index, 'coverImage', url);
     }
@@ -258,7 +262,7 @@ export default function AdminPage() {
           <br/>
           <div className={styles.inputGroup}>
             <label>Payment QR Code Image</label>
-            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'qrCode')} />
+            <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'qrCode', false, settings.qrCode)} />
             <small>Upload your UPI QR code image here. (Will be instantly applied)</small>
           </div>
         </div>

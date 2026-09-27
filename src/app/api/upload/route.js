@@ -59,6 +59,19 @@ export async function POST(request) {
       if (updateError) throw updateError;
     }
 
+    // Delete old file if oldUrl is provided
+    const oldUrl = formData.get('oldUrl');
+    if (oldUrl && typeof oldUrl === 'string' && oldUrl.includes('/uploads/')) {
+      try {
+        const oldFilename = oldUrl.split('/').pop();
+        if (oldFilename) {
+          await supabase.storage.from('uploads').remove([oldFilename]);
+        }
+      } catch (err) {
+        console.error("Failed to delete old file:", err);
+      }
+    }
+
     return NextResponse.json({ success: true, url: publicUrl });
   } catch (error) {
     console.error(error);
