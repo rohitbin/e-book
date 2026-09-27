@@ -153,7 +153,15 @@ export default function Home() {
                         <h3 className={styles.bookTitle}>{book.title}</h3>
                         <p className={styles.bookDesc}>{book.description}</p>
                         <div className={styles.bookFooter}>
-                          <span className={styles.bookPrice}>₹{book.price}</span>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                            <span className={styles.bookPrice}>₹{book.price}</span>
+                            {book.downloadCount && (
+                              <span style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: '600' }}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                {book.downloadCount} Downloads
+                              </span>
+                            )}
+                          </div>
                           <button 
                             className={styles.bookBuyBtn} 
                             onClick={() => setPaymentModal({ title: book.title, price: book.price, qrCode: settings.qrCode, upiId: settings.upiId, isMain: false })}

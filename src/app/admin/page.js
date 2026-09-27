@@ -243,6 +243,11 @@ export default function AdminPage() {
               </div>
               <br/>
               <div className={styles.inputGroup}>
+                <label>Download Count (e.g. 5.4k+ or 1,200)</label>
+                <input type="text" value={book.downloadCount || ''} onChange={(e) => handleBookChange(index, 'downloadCount', e.target.value)} placeholder="Leave blank to hide" />
+              </div>
+              <br/>
+              <div className={styles.inputGroup}>
                 <label>Cover Image</label>
                 <input type="file" accept="image/*" onChange={(e) => handleBookCoverUpload(e, index)} />
                 {book.coverImage && <img src={book.coverImage} alt="Cover Preview" style={{ width: '100px', marginTop: '0.5rem' }} />}
