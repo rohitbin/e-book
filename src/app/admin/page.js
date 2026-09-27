@@ -243,7 +243,7 @@ export default function AdminPage() {
               </div>
               <br/>
               <div className={styles.inputGroup}>
-                <label>Download Count (e.g. 5.4k+ or 1,200)</label>
+                <label>Number of Buyers (e.g. 5.4k+ or 1,200)</label>
                 <input type="text" value={book.downloadCount || ''} onChange={(e) => handleBookChange(index, 'downloadCount', e.target.value)} placeholder="Leave blank to hide" />
               </div>
               <br/>
